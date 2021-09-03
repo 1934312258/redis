@@ -1,5 +1,6 @@
 package com.kevin.reidstest.controller;
 
+import com.kevin.reidstest.service.DubboService;
 import com.kevin.reidstest.test.HashTest;
 import com.kevin.reidstest.test.ListTest;
 import com.kevin.reidstest.test.MainTest;
@@ -39,6 +40,9 @@ public class TestController {
 
     @Autowired
     MainTest mainTest;
+
+    @Autowired
+    DubboService dubboService;
 
     @RequestMapping("/test")
     public void test2() throws IOException {

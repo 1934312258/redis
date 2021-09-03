@@ -49,6 +49,7 @@ public class HashTest {
         List list = Arrays.asList("name","face");
         values = hash.multiGet(key,list);
         RedisOperations redisOperations = hash.getOperations();
+        // 获取所有的值
         Map all = hash.entries(key);
         result = hash.hasKey(key,"name");
         Set set = hash.keys(key);
@@ -73,9 +74,7 @@ public class HashTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         now = hash.size(key);
-
     }
 
 }

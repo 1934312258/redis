@@ -8,7 +8,7 @@ package com.kevin.reidstest.entity;
  * @author zhaowenjian
  * @since 2021/7/2 13:24
  */
-public class People1 {
+public class People1{
     private String name;
     private Long id;
 

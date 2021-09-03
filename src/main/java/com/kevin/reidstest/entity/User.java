@@ -19,5 +19,7 @@ public class User {
 
     private Integer age;
 
+    private String emjor;
+
 
 }

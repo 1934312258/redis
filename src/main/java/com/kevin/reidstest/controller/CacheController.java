@@ -30,7 +30,7 @@ public class CacheController {
         user.setName("kevin");
         String name = "kevin";
         int age = 18;
-        return service.getAll(name,age);
+        return service.getAll();
     }
 
     @RequestMapping("/addUser")
@@ -46,6 +46,11 @@ public class CacheController {
     @RequestMapping("/deleteUser")
     public void updateUser(){
         service.delete();
+    }
+
+    @RequestMapping("/testTr")
+    public void testTr(){
+        service.testTr();
     }
 
     @RequestMapping("/getRoles")

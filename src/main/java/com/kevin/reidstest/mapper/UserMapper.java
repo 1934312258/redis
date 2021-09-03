@@ -22,7 +22,7 @@ public interface UserMapper {
     @Select("select * from user")
     public List<User> getUserS();
 
-    @Insert("insert into user(name,age)values(#{name},#{age})")
+    @Insert("insert into user(name,age,emjor)values(#{name},#{age},#{emjor})")
     public Integer add(User user);
 
     @Update("update user set name = #{name},age= #{age} where id = #{id}")

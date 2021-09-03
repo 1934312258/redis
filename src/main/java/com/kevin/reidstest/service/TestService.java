@@ -7,8 +7,8 @@ import com.kevin.reidstest.mapper.UserMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -75,16 +75,25 @@ public class TestService {
     //@Cacheable(value="users",key= "#p0+'1234'",condition = "#p0=='kevin'")
 //    @CachePut(value="users",key= "#p0+'1234'",condition = "#p0=='kevin'")
 //    @CachePut(value="users")
-    @Caching(cacheable = @Cacheable(value = "user"),evict = {@CacheEvict(value = "users",allEntries = true),@CacheEvict(value = "jfwf")}
-    ,put = @CachePut(value = "put",key = "#p0"))
-    public List<User> getAll(String name,int age){
+    //@Caching(cacheable = @Cacheable(value = "user"),evict = {@CacheEvict(value = "users",allEntries = true),@CacheEvict(value = "jfwf")}
+    //,put = @CachePut(value = "put",key = "#p0"))
+    @Cacheable("nokey")
+    public List<User> getAll(){
+        getAll1();
         return userMapper.getUserS();
     }
 
     //@CachePut(value = "add",key = "#user.name")
     // 添加的缓存为返回结果，所以add不需要加注解添加缓存
+    @Transactional(rollbackFor = Exception.class)
     public int add(User user){
-        return userMapper.add(user);
+        int result = userMapper.add(user);
+//        Role role = new Role();
+//        role.setRoleName("admin");
+//        roleMapper.insert(role);
+//        addRole(role);
+//        System.out.println(1/0);
+        return result;
     }
 
    // @CacheEvict(value = "users",key = "#user.name")
@@ -100,19 +109,33 @@ public class TestService {
 
     }
 
-    @Cacheable
+    @Cacheable(value = "role")
     public List<Role> getAll1(){
         return roleMapper.getall();
     }
 
-    @CachePut
+    @Transactional(rollbackFor = Exception.class)
     public int addRole(Role role){
-        return roleMapper.insert(role);
+        int result = roleMapper.insert(role);
+        System.out.println(1/0);
+        return result;
     }
 
     @CachePut
     public int update1(Role role){
         return roleMapper.update(role);
+    }
+
+//    @Transactional(rollbackFor = Exception.class)
+    public void testTr(){
+        User user = new User();
+        user.setName("kevin");
+        user.setAge(16);
+        Role role = new Role();
+        role.setRoleName("admin");
+        add(user);
+        addRole(role);
+
     }
 
 }
